@@ -30,4 +30,16 @@ app.get('/users/:id', (req, res) => {
 	res.json(db.users.get(id));
 })
 
+app.post('/users/new', (req, res) => {
+	const payload = req.body;
+	db.users.set(db['id']++, payload);
+	res.status(201).json(payload);
+})
+
+app.post('/taches/new', (req, res) => {
+	const payload = req.body;
+	db.taches.set(db['id']++, payload);
+	res.status(201).json(payload);
+})
+
 module.exports = app;

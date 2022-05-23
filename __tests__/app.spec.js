@@ -63,5 +63,33 @@ describe("Mon API CRUD", () => {
       expect(JSON.parse(res.text)).toMatchObject(db.users.get(1));
     });
 
+    it("POST /users/new ajouter un nouvel user", async () => {
+      const res = await request(app)
+        .post("/users/new")
+        .send({
+          id: 10245, 
+          email: 'test2@test2.com',
+          username: 'test2',
+          motdepasse: '098f6bcd4621d373cade4e832627b4f6'
+        })
+        .expect(201)
+        .expect("content-type", /json/);
+      expect(JSON.parse(res.text)).toMatchObject(db.users.get(10245));
+    });
+
+    it("POST /taches/new ajouter une nouvelle tache", async () => {
+      const res = await request(app)
+        .post("/taches/new")
+        .send({
+          id: 10235, 
+          description: 'test 2 supertest',
+          faite: true
+        })
+        .expect(201)
+        .expect("content-type", /json/);
+      expect(JSON.parse(res.text)).toMatchObject(db.taches.get(10235));
+    });
+
+
   })
 })
