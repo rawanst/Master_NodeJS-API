@@ -10,6 +10,7 @@ const mapToObj = (m) => {
 
 describe("Mon API CRUD", () => {
 
+  
   beforeEach(()=>{
     db['taches'] = new Map();
     db['users'] = new Map();
@@ -115,6 +116,20 @@ describe("Mon API CRUD", () => {
       expect(modification).toMatchObject(db.tache.get(1));
     });
 
+    it("DELETE /users/:id suprimer un user", async () => {
+      const res = await request(app)
+        .delete("/users/1")
+        .expect(200);
+      expect(true);
+    });
+
+    it("DELETE /taches/:id suprimer une tache", async () => {
+      const res = await request(app)
+        .delete("/taches/1")
+        .expect(200);
+      expect(true);
+    });
 
   })
+
 })

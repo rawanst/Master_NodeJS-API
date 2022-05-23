@@ -12,6 +12,7 @@ const mapToObj = (m) => {
 
 app.use(express.json());
 
+// Routes GET
 app.get('/taches', (req, res) => {
 	res.json(mapToObj(db.taches));
 })
@@ -30,6 +31,7 @@ app.get('/users/:id', (req, res) => {
 	res.json(db.users.get(id));
 })
 
+// Routes POST
 app.post('/users', (req, res) => {
 	const payload = req.body;
 	db.users.set(db['id']++, payload);
@@ -42,6 +44,7 @@ app.post('/taches', (req, res) => {
 	res.status(201).json(payload);
 })
 
+// Routes POST
 app.put('/users/:id', (req, res) => {
 	let id = parseInt(req.params.id)
 	const payload = req.body;
@@ -54,6 +57,17 @@ app.put('/taches/:id', (req, res) => {
 	const payload = req.body;
 	db.taches.set(id, payload);
 	res.status(204).send();
+})
+
+// Routes DELETE
+app.delete('/users/:id', (req, res) => {
+	let id = parseInt(req.params.id)
+	res.json(db.users.delete(id));
+})
+
+app.delete('/taches/:id', (req, res) => {
+	let id = parseInt(req.params.id)
+	res.json(db.taches.delete(id));
 })
 
 module.exports = app;
