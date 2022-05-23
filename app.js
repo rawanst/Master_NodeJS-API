@@ -2,6 +2,21 @@
 const express = require('express');
 const app = express();
 const db = require("./db");
+// const Joi = require('joi');
+// Joi.objectId = require('joi-objectid')(Joi)
+// const jwt = require("jsonwebtoken");
+// require('dotenv').config();
+
+// const userSchema = new mongoose.Schema({
+// 	email: String().require().email(),
+// 	username: String().require().min(3),
+// 	motdepasse: String().require().min(3)
+// });
+
+// const tacheSchema = new mongoose.Schema({
+// 	description: String().require(),
+// 	faite: Boolean().require(),
+// });
 
 const mapToObj = (m) => {
 	return Array.from(m).reduce((obj, [key, value]) => {
@@ -11,6 +26,24 @@ const mapToObj = (m) => {
 };
 
 app.use(express.json());
+
+// app.post('/account', (req, res) => {
+// 	const token2 = jwt.sign({userId: 13}, process.env.SECRET_JWT);
+
+// 	const header = token.split('.')[0];
+// 	const payload = token.split('.')[1];
+// 	const signature = token2.split('.')[2];
+
+// 	const fakeToken = header +"."+ payload +"."+ signature
+// 	console.log("FAKE TOKEN : ", fakeToken);
+
+
+// 	try {
+// 	const failedVerification = jwt.verify(fakeToken, process.env.SECRET_JWT);
+// 	}catch(exc){
+// 	console.log('echec de la vérification du Faux Token : PAS LA BONNE SIGNATURE');
+// 	}
+// })
 
 // Routes GET
 app.get('/taches', (req, res) => {
@@ -34,6 +67,10 @@ app.get('/users/:id', (req, res) => {
 // Routes POST
 app.post('/users', (req, res) => {
 	const payload = req.body;
+	// if(userSchema.validateAsync(payload)){
+	// 	db.users.set(db['id']++, payload);
+	// 	res.status(201).json(payload);
+	// }
 	db.users.set(db['id']++, payload);
 	res.status(201).json(payload);
 })
