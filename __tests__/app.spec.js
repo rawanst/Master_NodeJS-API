@@ -90,6 +90,31 @@ describe("Mon API CRUD", () => {
       expect(JSON.parse(res.text)).toMatchObject(db.taches.get(10235));
     });
 
+    it("PUT /users/:id modifier un user", async () => {
+      let modification = { 
+        email:"at123@test.com",
+        username:"at123",
+        motdepasse:"098f6bcd4621d373cade4e832627b4f6"
+     };
+      const res = await request(app)
+        .put("/users/1")
+        .send(modification)
+        .expect(204);
+      expect(modification).toMatchObject(db.users.get(1));
+    });
+
+    it("PUT /taches/:id modifier une tache", async () => {
+      let modification = { 
+        description: 'testTrue',
+        faite: true
+     };
+      const res = await request(app)
+        .put("/tache/1")
+        .send(modification)
+        .expect(204);
+      expect(modification).toMatchObject(db.tache.get(1));
+    });
+
 
   })
 })

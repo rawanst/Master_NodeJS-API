@@ -30,16 +30,30 @@ app.get('/users/:id', (req, res) => {
 	res.json(db.users.get(id));
 })
 
-app.post('/users/new', (req, res) => {
+app.post('/users', (req, res) => {
 	const payload = req.body;
 	db.users.set(db['id']++, payload);
 	res.status(201).json(payload);
 })
 
-app.post('/taches/new', (req, res) => {
+app.post('/taches', (req, res) => {
 	const payload = req.body;
 	db.taches.set(db['id']++, payload);
 	res.status(201).json(payload);
+})
+
+app.put('/users/:id', (req, res) => {
+	let id = parseInt(req.params.id)
+	const payload = req.body;
+	db.users.set(id, payload);
+	res.status(204).send();
+})
+
+app.put('/taches/:id', (req, res) => {
+	let id = parseInt(req.params.id)
+	const payload = req.body;
+	db.taches.set(id, payload);
+	res.status(204).send();
 })
 
 module.exports = app;
